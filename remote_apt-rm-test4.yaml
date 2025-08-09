@@ -1,0 +1,28 @@
+- name: Remove APT on Ubuntu host if installed
+  hosts: myhosts
+  become: true
+  tasks:
+    - name: Check if APT is installed
+      command: which ncal
+      register: apt_check
+      ignore_errors: true
+
+    - name: Print message if APT is installed
+      debug:
+        msg: "The ncal package is installed and will be removed"
+      when: apt_check.rc == 0
+      
+    - name: Remove APT if installed
+      apt:
+        name: ncal
+        state: absent
+      register: apt_removed
+      when: apt_check.rc == 0
+      
+    - name: Display message if APT removed
+      debug:
+        msg: "The ncal package was already removed"
+      when: apt_removed.changed
+      
+
+

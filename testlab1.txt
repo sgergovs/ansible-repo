@@ -1,0 +1,6 @@
+sudo mount -t cifs -o username=user1,password=user1s! //192.168.0.151/cephshare1 /mnt/mysmb
+
+sudo rsync -avh ansible-playbooks/ /mnt/mysmb/test/ansible_backups
+
+sudo rsync -avh ansible-playbooks/ /home/ubuser22/ansible-repo
+

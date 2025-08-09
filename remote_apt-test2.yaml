@@ -1,0 +1,18 @@
+- name: Install apt on Ubuntu host
+  hosts: myhosts
+  become: true
+  tasks:
+    - name: Install libvirt-clients
+      ansible.builtin.apt:
+        name: libvirt-clients
+        state: present
+        update_cache: yes
+      register: apt_install
+
+    - name: Check if tree is installed
+      debug:
+        msg: "The libvirt-clients package is installed"
+      when: apt_install.changed
+
+
+

@@ -1,0 +1,27 @@
+- name: Install apt on Ubuntu host if not installed
+  hosts: myhosts
+  become: true
+  tasks:
+    - name: Check if APT is installed
+      ansible.builtin.command: dpkg-query -l apache2
+      register: apt_check
+      ignore_errors: yes
+
+    - name: Print message if APT is already installed
+      debug:
+        msg: "apache2 is already installed"
+      when: apt_check.rc == 0
+      
+    - name: Install APT if not installed
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+      when: apt_check.rc != 0
+    
+    - name: Print message after APT is installed
+      debug:
+        msg: "apache2 was just installed"
+      when: apt_check.rc != 0
+
+
+

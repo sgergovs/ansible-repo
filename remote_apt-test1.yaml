@@ -1,0 +1,19 @@
+- name: Instal apt on Ubuntu host
+  hosts: myhosts
+  become: true
+  tasks:
+    - name: install tree
+      ansible.builtin.apt:
+        name: tree
+        state: present
+        update_cache: yes
+
+    - name: View status of tree
+      ansible.builtin.command: command -v tree
+      register: cmd_output
+
+    - name: Print the result
+      debug:
+        msg: cmd_output.stdout
+
+
