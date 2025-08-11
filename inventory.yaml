@@ -3,5 +3,5 @@ myhosts:
     HPVM1:
       ansible_host: 192.168.0.153
       ansible_user: ubuser22
-
+      ansible_ssh_private_key_file: /home/ubuser22/.ssh/id_ansible
 
